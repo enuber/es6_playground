@@ -1,31 +1,38 @@
- // var name = "Jane";
-// var title = "Software Engineer";
-// var hourlyWage = 40;
+//Template Strings
 
-//ES6
+function getMessage() {
+    const year = new Date().getFullYear();
+    return "The year is " + year;
+}
 
- // const is used because we don't expect the name to change
- //let is used when we expect the variable to change, it is more similar to var
-const name = "Jane";
-let title = "Software Engineer";
-let hourlyWage = 40;
-
-// some time later...
-
- title = 'Senior Software Engineer';
- hourlyWage = 45;
+console.log(getMessage());
 
 
- function count (string) {
-     const characters = ['a', 'e', 'i', 'o', 'u'];
-     let number = 0;
+// difference is we use back ticks and then whereever we want a variable to appear we put it inside of the
+// ${variableNameHere}. This allows us to not have to use normal concatenation.
+// inside the ${} you don't just have to have a variable, you can do any JS expression so you can do math for
+//instance
+function getMessage() {
+    const year = new Date().getFullYear();
+    return `The year is ${year}`;
+}
 
-     for (let i = 0; i < string.length; i++) {
-         if (characters.includes(string[i])) {
-             number++
-         }
-     }
-     return number;
- }
+console.log(getMessage());
 
- console.log(count('aeiobzxceiaipbiox'));
+//PHP
+// $data = '{"device_id":"'.$device_id.'","guid":"'.$guid.'","username":"'.$username.'","}';
+
+data = '{"device_id":"' + device_id +'", "guid":"' + guid +'", "username":"' + username +'","}';
+
+data = `{"device_id": "${device_id}", "guid": "${guid}", "username": "${username}", "} `;
+
+
+//don't do the following
+const year = 2016;
+const yearMsg = `${year}`;
+yearMsg;
+
+//should just be
+const year = 2016;
+const yearMsg = year;
+yearMsg;
