@@ -1,38 +1,54 @@
-//Template Strings
+//fat arrows
 
-function getMessage() {
-    const year = new Date().getFullYear();
-    return "The year is " + year;
-}
+const add = function(a, b) {
+    return a+b;
+};
 
-console.log(getMessage());
+add(1, 2);
 
+//remove function key word add fat arrow after params
+const addFat = (a, b) => {
+    return a+b;
+};
 
-// difference is we use back ticks and then whereever we want a variable to appear we put it inside of the
-// ${variableNameHere}. This allows us to not have to use normal concatenation.
-// inside the ${} you don't just have to have a variable, you can do any JS expression so you can do math for
-//instance
-function getMessage() {
-    const year = new Date().getFullYear();
-    return `The year is ${year}`;
-}
-
-console.log(getMessage());
-
-//PHP
-// $data = '{"device_id":"'.$device_id.'","guid":"'.$guid.'","username":"'.$username.'","}';
-
-data = '{"device_id":"' + device_id +'", "guid":"' + guid +'", "username":"' + username +'","}';
-
-data = `{"device_id": "${device_id}", "guid": "${guid}", "username": "${username}", "} `;
+addFat(1, 2);
 
 
-//don't do the following
-const year = 2016;
-const yearMsg = `${year}`;
-yearMsg;
+//if single expression, you can remove the brackets and the return and, it will implicitly return
+const addFat1 = (a, b) => a+b;
 
-//should just be
-const year = 2016;
-const yearMsg = year;
-yearMsg;
+addFat1(1, 2);
+
+
+const double = function(number) {
+    return 2 * number;
+};
+
+double(8);
+
+//with a single argument coming in, you can also omit the () around it. like the following
+// const double1 = number => return 2 * number;
+//
+// double1(8);
+
+const number = [1,2,3];
+
+//using map this is how learned initially
+numbers.map(function(number) {
+    return 2 * number
+});
+//this drops function and puts the fat arrow after argument. as only one arguement can drop ()
+//since a single expression, can remove {} and return so it becomes just this
+numbers.map(number => 2* number);
+
+const team = {
+    members: ['Jane', 'Bill'],
+    teamName: 'Super Squad',
+    teamSummary: function() {
+        return this.members.map(function(member) {
+            return `${member} is on team ${this.teamName}`
+        })
+    }
+};
+
+console.log(team.teamSummary());
