@@ -29,9 +29,9 @@ double(8);
 //with a single argument coming in, you can also omit the () around it. like the following
 // const double1 = number => return 2 * number;
 //
-// double1(8);
+// double1(8);got a
 
-const number = [1,2,3];
+const numbers = [1,2,3];
 
 //using map this is how learned initially
 numbers.map(function(number) {
@@ -45,7 +45,7 @@ const team = {
     members: ['Jane', 'Bill'],
     teamName: 'Super Squad',
     teamSummary: function() {
-        return this.members.map(function(member) {
+        return this.members.map(member => {
             return `${member} is on team ${this.teamName}`
         })
     }
