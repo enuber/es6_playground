@@ -1,77 +1,48 @@
-// function createBookShop(inventory) {
-//     return {
-//         inventory: inventory,
-//         inventoryValue: function() {
-//             return this.inventory.reduce((total, book)=> total + book.price, 0 );
-//         },
-//         priceForTitle: function(title) {
-//             return this.inventory.find(book => book.title === title).price;
-//         }
-//     }
-// }
-//
-// const inventory = [
-//     { title: 'Harry Potter', price: 10 },
-//     { ttile: "Eloquent JS", price: 15 }
-// ];
-//
-// const bookShop = createBookShop(inventory);
-//
-// console.log(bookShop.inventoryValue());
-// console.log(bookShop.priceForTitle('Harry Potter'));
+//Default Funciton Paramaeters
 
+function makeAjaxRequest(url, method) {
 
-//rewritten with Obj Literals
-//if key and value are exact same name, we can just say it one time. (ie inventory :inventory is just inventory
-//if you have a key value pair this is a function, you can omit the function keyword and the :
-function createBookShop(inventory) {
-    return {
-        inventory,
-        inventoryValue() {
-            return this.inventory.reduce((total, book)=> total + book.price, 0 );
-        },
-        priceForTitle(title) {
-            return this.inventory.find(book => book.title === title).price;
-        }
+    if (!method) {
+        method = 'Get';
     }
+
+    //logic for request
+
 }
 
-const inventory = [
-    { title: 'Harry Potter', price: 10 },
-    { ttile: "Eloquent JS", price: 15 }
-];
-
-const bookShop = createBookShop(inventory);
-
-console.log(bookShop.inventoryValue());
-console.log(bookShop.priceForTitle('Harry Potter'));
+makeAjaxRequest('google.com');
+makeAjaxRequest('goole.com', 'GET');
 
 
-//another set
-// function saveFile(url, data) {
-//     $.ajax({
-//         method: 'POST',
-//         url: url,
-//         data: data
-//     });
-// }
-//
-// const url = "http://fileupload.com";
-// const data = { color: red };
-//
-// saveFile(url, data);
+//This says if user did not pass in a method argument, it is assgined 'GET' otherwise method is whatever is sent in.
+//if you want it to be undefined specifically you can pass in null instead.
+function makeAjaxRequest(url, method = 'GET') {
 
-//again if key and value are same you can just call it one time
-//it is standard to move single key value pairs to the left/top of list
-function saveFile(url, data) {
-    $.ajax({
-        url,
-        data,
-        method: 'POST',
-    });
+    //logic for request
+
 }
 
-const url = "http://fileupload.com";
-const data = { color: red };
+makeAjaxRequest('google.com');
+makeAjaxRequest('google.com', 'POST');
+makeAjaxRequest('google.com', null);
 
-saveFile(url, data);
+
+//__________________________
+
+function User(id) {
+    this.id = id;
+}
+
+function generateID() {
+    return Math.random() * 999999;
+}
+//this makes use of default arguements, if a user isn't passed in, it generates a user to make admin. So can
+//work either way as is called below;
+function createAdminUser(user = new User(generateID())) {
+    user.admin = true;
+    return user;
+}
+
+createAdminUser();
+const user = new User(generateID());
+createAdminUser(user);
