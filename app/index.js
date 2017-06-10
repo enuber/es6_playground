@@ -1,54 +1,18 @@
-//fat arrows
-
-const add = function(a, b) {
-    return a+b;
-};
-
-add(1, 2);
-
-//remove function key word add fat arrow after params
-const addFat = (a, b) => {
-    return a+b;
-};
-
-addFat(1, 2);
-
-
-//if single expression, you can remove the brackets and the return and, it will implicitly return
-const addFat1 = (a, b) => a+b;
-
-addFat1(1, 2);
-
-
-const double = function(number) {
-    return 2 * number;
-};
-
-double(8);
-
-//with a single argument coming in, you can also omit the () around it. like the following
-// const double1 = number => return 2 * number;
-//
-// double1(8);
-
-const numbers = [1,2,3];
-
-//using map this is how learned initially
-numbers.map(function(number) {
-    return 2 * number
-});
-//this drops function and puts the fat arrow after argument. as only one arguement can drop ()
-//since a single expression, can remove {} and return so it becomes just this
-numbers.map(number => 2* number);
-
-const team = {
-    members: ['Jane', 'Bill'],
-    teamName: 'Super Squad',
-    teamSummary: function() {
-        return this.members.map(member => {
-            return `${member} is on team ${this.teamName}`
-        })
+function createBookShop(inventory) {
+    return {
+        inventory: inventory,
+        inventoryValue: function() {
+            return this.inventory.reduce((total, book)=> total + book.price, 0 );
+        },
+        priceForTitle: function(title) {
+            return this.inventory.find(book => book.title === title).price;
+        }
     }
-};
+}
 
-console.log(team.teamSummary());
+const inventory = [
+    { title: 'Harry Potter', price: 10 },
+    { ttile: "Eloquent JS", price: 15 }
+];
+
+const bookShop = createBookShop(inventory);
