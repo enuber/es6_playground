@@ -80,3 +80,10 @@ const list = points.map(([x, y]) => {
 });
 
 console.log(list);
+
+
+const numbers = [1, 2, 3];
+
+const double = ([num, ...rest]) => rest.length? [ num *2, ...double(rest) ] : [ num * 2 ];
+
+double(numbers);
