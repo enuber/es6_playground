@@ -1,61 +1,89 @@
-//Rest and Spread
+//destructuring
 
-function addNums(numbers) {
-    return numbers.reduce((total, number) => {
-        return total + number;
-    },0)
+var expense = {
+    type: 'Business',
+    amount: '$45 USB'
 }
+//
+// var type = expense.type;
+// var amount = expense.amount;
 
-const a = [1, 2, 3, 4, 5, 6, 7];
+//es6
+//when curly braces used on left side, it is saying you want to declare a new variable called whatever is inside the
+//brace and it should reference the right hand expression.
 
-console.log(addNums(a));
+//here we are saying we want to declare a variable called type and assign it to expense.type.
+// const { type } = expense;
+// const { amount } = expense;
 
-//this says we don't know how many arguments are coming in, we want to capture them all and put them into
-//an array the ... is a rest operator that allows us to do this.
-
-function addNums1(...numbers) {
-    return numbers.reduce((total, number) => {
-        return total + number;
-    },0)
-}
-
-
-console.log(addNums1(1,2,3,4,5,6,7));
+//can simplify even more, we can pull off more than one variable within an object with a comma separated list
+const { type, amount } = expense;
 
 
-const defaultColors = ['red', 'green'];
-const userFavColors = ['orange', 'yellow'];
-
-console.log(defaultColors.concat(userFavColors));
-
-//this is the spread operator,  a new array was created with the [] brackets, we then put inside of it, a reference
-//to existing arrays defaultColors and userFavColors we then added the spread operator which is the ... which means
-//we want to take all of what is in the referenced array and pull them out into the new array. The same process is
-//repeated with all spread operators followed by an array. It removes whatever was in the referenced array and puts it
-//into the new array.
-console.log([...defaultColors, ...userFavColors]);
-//can also add in new elements at the same time...
-console.log(['blue',...defaultColors, 'green', ...userFavColors]);
-
-
-//here we are using both rest and spread. First a list of items of any size is sent in. We check to see
-//if there is milk on the list, if not, we add it to the list of items and return it. Otherwise we just return the list.
-function validateShoppingList(...items) {
-    if (items.indexOf('milk') < 0) {
-        return ['milk', ...items];
-    }
-    return items;
-}
-
-console.log(validateShoppingList('oranges', 'bread', 'eggs'));
-
-
-const MathLibrary = {
-    calcProduct (...rest) {
-        console.log('please use multNums instead');
-        return this.multNums(...rest)
-    },
-    multNums(a,b) {
-        return a*b;
-    }
+var savedFile = {
+    extension: '.jpg',
+    name: 'repost',
+    size: 14040
 };
+
+function fileSummary(file) {
+    return `The file ${file.name}${file.extension} is of size ${file.size}`
+}
+
+console.log(fileSummary(savedFile));
+
+//destructure
+
+function fileSummary1({ name, extension, size}) {
+    return `The file ${name}${extension} is of size ${size}`
+}
+
+console.log(fileSummary1(savedFile));
+
+//arrays
+
+//when desstructing arrays, you get them in the order they are in the original array
+const companies = ['google', 'facebook', 'Uber'];
+//
+// const [ name, name1, name2 ] = companies;
+// console.log(name, name1, name2);
+
+
+const companies2 = [
+    {name: 'google', location: 'Mountain View'},
+    {name: 'facebook', location: 'Menlo Park'},
+    {name: 'Uber', location: 'San Francisco'}
+];
+
+//goes outside in. so first we grab the first index of the array which is the full obj. then, with the {} we
+//are destructuring further and getting the name and location.
+const [{name, location}] = companies2;
+console.log(name, location);
+
+
+const Google = {
+    locations: ['Mountain View', 'New York', 'London']
+};
+//more chanllenging...we are first destructing obj. and getting locations. However, this is an array so we need
+//to walk into the array and pull off the first item of that array
+// const {locations : [ location ]} = Google;
+// console.log(location);
+
+const points = [
+    [4,5],
+    [10, 1],
+    [0, 40]
+];
+
+const list = points.map(([x, y]) => {
+    return { x: x, y: y};
+});
+
+console.log(list);
+
+
+const numbers = [1, 2, 3];
+
+const double = ([num, ...rest]) => rest.length? [ num *2, ...double(rest) ] : [ num * 2 ];
+
+double(numbers);
