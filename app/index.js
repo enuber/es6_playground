@@ -1,89 +1,65 @@
-//destructuring
+//classes
 
-var expense = {
-    type: 'Business',
-    amount: '$45 USB'
-}
+// function Car(options) {
+//     this.title = options.title;
+// }
+// Car.prototype.drive = function() {
+//     return 'vroom';
+// };
 //
-// var type = expense.type;
-// var amount = expense.amount;
+// function Toyota(options) {
+//     Car.call(this, options);
+//     this.color = options.color;
+// }
+//
+//
+// Toyota.prototype = Object.create(Car.prototype);
+// Toyota.prototype.constructor = Toyota;
+//
+// Toyota.prototype.honk = function() {
+//     return 'beep';
+// };
+//
+//
+// const toyota = new Toyota({color: 'red', title: 'Daily Driver'});
+//
+// console.log(toyota.honk());
+// console.log(toyota.drive());
+// console.log(toyota.color);
+// console.log(toyota.title);
 
 //es6
-//when curly braces used on left side, it is saying you want to declare a new variable called whatever is inside the
-//brace and it should reference the right hand expression.
 
-//here we are saying we want to declare a variable called type and assign it to expense.type.
-// const { type } = expense;
-// const { amount } = expense;
-
-//can simplify even more, we can pull off more than one variable within an object with a comma separated list
-const { type, amount } = expense;
-
-
-var savedFile = {
-    extension: '.jpg',
-    name: 'repost',
-    size: 14040
-};
-
-function fileSummary(file) {
-    return `The file ${file.name}${file.extension} is of size ${file.size}`
+class Car {
+    //could do {title} instead of options and this.title = title;
+    constructor(options) {
+        this.title = options.title;
+    }
+    drive() {
+        return 'vroom';
+    }
 }
 
-console.log(fileSummary(savedFile));
-
-//destructure
-
-function fileSummary1({ name, extension, size}) {
-    return `The file ${name}${extension} is of size ${size}`
+//extends says we are grabbing a class Car and being able to use all it's methods
+//super() allows us to call Car.constructor() because they have the same name. If both had honk() methods, we could
+//declare super() inside the honk() method as well. We also have to pass super any info the Car.constructor()
+//may need as well.
+//Also to note you don't want to use destrucutring to pull off what you want, you need to have them all grouped
+//together within the object.
+class Toyota extends Car {
+    constructor(options) {
+        super(options);
+        this.color = options.color;
+    }
+    honk() {
+        return 'beep';
+    }
 }
 
-console.log(fileSummary1(savedFile));
-
-//arrays
-
-//when desstructing arrays, you get them in the order they are in the original array
-const companies = ['google', 'facebook', 'Uber'];
-//
-// const [ name, name1, name2 ] = companies;
-// console.log(name, name1, name2);
+const toyota = new Toyota({color: 'red', title: 'Daily Driver'});
+console.log(toyota.honk());
+console.log(toyota.drive());
+console.log(toyota.color);
+console.log(toyota.title);
 
 
-const companies2 = [
-    {name: 'google', location: 'Mountain View'},
-    {name: 'facebook', location: 'Menlo Park'},
-    {name: 'Uber', location: 'San Francisco'}
-];
-
-//goes outside in. so first we grab the first index of the array which is the full obj. then, with the {} we
-//are destructuring further and getting the name and location.
-const [{name, location}] = companies2;
-console.log(name, location);
-
-
-const Google = {
-    locations: ['Mountain View', 'New York', 'London']
-};
-//more chanllenging...we are first destructing obj. and getting locations. However, this is an array so we need
-//to walk into the array and pull off the first item of that array
-// const {locations : [ location ]} = Google;
-// console.log(location);
-
-const points = [
-    [4,5],
-    [10, 1],
-    [0, 40]
-];
-
-const list = points.map(([x, y]) => {
-    return { x: x, y: y};
-});
-
-console.log(list);
-
-
-const numbers = [1, 2, 3];
-
-const double = ([num, ...rest]) => rest.length? [ num *2, ...double(rest) ] : [ num * 2 ];
-
-double(numbers);
